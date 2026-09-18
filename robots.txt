@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pepi3q1.github.io/pepi-connections/sitemap.xml
