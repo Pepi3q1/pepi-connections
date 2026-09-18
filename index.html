@@ -101,7 +101,7 @@
   :root[data-skin="hud"]{
     --bg:#02050A; --bg2:#050B10;
     --fg:#E8FBFF; --dim:#5FA8C4;
-    --glass:rgba(6,20,28,.55);
+    --glass:rgba(6,20,28,.22);
     --line:rgba(0,240,255,.28);
     --ink:#E8FBFF;
     --wash-o:.5;
@@ -115,7 +115,7 @@
   :root[data-skin="souls"]{
     --bg:#0D0805; --bg2:#1A1006;
     --fg:#F0E6D2; --dim:#A8967A;
-    --glass:rgba(40,28,16,.55);
+    --glass:rgba(40,28,16,.24);
     --line:rgba(212,162,76,.28);
     --ink:#F0E6D2;
     --wash-o:.45;
@@ -410,6 +410,20 @@
 
   /* keep decorative corner/ember markers out of normal flow regardless of active skin */
   .card > .corner, .card > .ember{position:absolute; pointer-events:none}
+
+  /* let the background video read through the panels instead of being buried under heavy blur */
+  [data-skin="hud"] .card, [data-skin="souls"] .card{
+    backdrop-filter:blur(10px) saturate(1.25); -webkit-backdrop-filter:blur(10px) saturate(1.25);
+  }
+  [data-skin="hud"] .player-bar, [data-skin="souls"] .player-bar{
+    backdrop-filter:blur(10px) saturate(1.25); -webkit-backdrop-filter:blur(10px) saturate(1.25);
+  }
+  [data-skin="hud"] .qr-panel, [data-skin="souls"] .qr-panel{
+    backdrop-filter:blur(10px) saturate(1.25); -webkit-backdrop-filter:blur(10px) saturate(1.25);
+  }
+  [data-skin="hud"] .corner-btn, [data-skin="souls"] .corner-btn{
+    backdrop-filter:blur(8px) saturate(1.25); -webkit-backdrop-filter:blur(8px) saturate(1.25);
+  }
 
   /* ===================== SKIN: shape & decoration ===================== */
 
