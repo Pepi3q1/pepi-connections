@@ -733,9 +733,7 @@ LINKS.forEach((l, i) => {
   tiles.appendChild(el);
 });
 
-/* the glow follows whatever you're pointing at.
-   Default skin keeps a resting glow that matches the avatar; HUD and Souls
-   stay dark at rest and only light up in a platform's color while hovering it. */
+/* the tile itself shows the hover color (border/icon); the background glow no longer reacts to hover */
 const lit = c => { wash.style.backgroundColor = c; };
 function restingWashColor(){
   const skin = document.documentElement.getAttribute("data-skin") || "default";
@@ -744,10 +742,6 @@ function restingWashColor(){
 function applyRestingWash(){ lit(restingWashColor()); }
 applyRestingWash();
 const findTile = e => e.target.closest(".tile");
-tiles.addEventListener("pointerover", e => { const t = findTile(e); if (t) lit(t.style.getPropertyValue("--brand")); });
-tiles.addEventListener("focusin",     e => { const t = findTile(e); if (t) lit(t.style.getPropertyValue("--brand")); });
-tiles.addEventListener("pointerleave", applyRestingWash);
-tiles.addEventListener("focusout",     applyRestingWash);
 
 /* copy-only accounts */
 let toastTimer;
