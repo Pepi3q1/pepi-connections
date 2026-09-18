@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pepi-connections-3q1.netlify.app/sitemap.xml
+Sitemap: https://pepi3q1.github.io/pepi-connections/sitemap.xml

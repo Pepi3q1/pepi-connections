@@ -6,20 +6,40 @@
 <title>Pepi</title>
 <meta name="description" content="Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮">
 
-<link rel="icon" href="/avatar.jpg" type="image/jpeg">
-<link rel="apple-touch-icon" href="/avatar.jpg">
-<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="avatar.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="avatar.jpg">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0080F0">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pepi">
 <meta property="og:description" content="Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮">
-<meta property="og:image" content="/avatar.jpg">
-<meta property="og:url" content="https://REPLACE-WITH-YOUR-SITE-URL/">
+<meta property="og:image" content="avatar.jpg">
+<meta property="og:url" content="https://pepi3q1.github.io/pepi-connections/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pepi">
 <meta name="twitter:description" content="Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮">
-<meta name="twitter:image" content="/avatar.jpg">
+<meta name="twitter:image" content="avatar.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Pepi",
+  "url": "https://pepi3q1.github.io/pepi-connections/",
+  "image": "https://pepi3q1.github.io/pepi-connections/avatar.jpg",
+  "sameAs": [
+    "https://steamcommunity.com/id/Pepi3q1",
+    "https://steamcommunity.com/profiles/76561198772463645",
+    "https://youtube.com/@pepi3q145",
+    "https://www.roblox.com/users/profile?username=pepi3q1",
+    "https://www.roblox.com/users/profile?username=Vex_3q1",
+    "https://twitch.tv/pepi3q1",
+    "https://instagram.com/pepi.3q1",
+    "https://tiktok.com/@pepi3q1"
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -351,7 +371,7 @@
   <button class="corner-btn theme-btn" id="themeBtn" type="button" aria-label="Toggle theme"></button>
 
   <div class="player-bar" id="playerBar">
-    <img class="player-cover" id="playerCover" src="/avatar.jpg" alt="">
+    <img class="player-cover" id="playerCover" src="avatar.jpg" alt="">
     <div class="player-info">
       <p class="player-title" id="playerTitle">Add your song title</p>
       <p class="player-artist" id="playerArtist">Add your artist name</p>
@@ -374,7 +394,7 @@
   </div>
 
   <main class="card">
-    <div class="avatar" id="avatar"><img src="/avatar.jpg" alt="Pepi's avatar"></div>
+    <div class="avatar" id="avatar"><img src="avatar.jpg" alt="Pepi's avatar"></div>
     <h1 id="name">pepi</h1>
     <div class="status-badge" id="statusBadge" hidden>
       <span class="status-dot" id="statusDot"></span>
@@ -712,8 +732,8 @@ window.addEventListener("keydown", e => { if (e.key === "Escape") closeSens(); }
 
 /* music player — add your own track(s); one item plays, more become a playlist with Prev/Next */
 const TRACKS = [
-  { title:"Add your song title", artist:"Add your artist name", cover:"/avatar.jpg", src:"" }
-  // e.g. { title:"Track name", artist:"Artist", cover:"/cover1.jpg", src:"/song1.mp3" },
+  { title:"Add your song title", artist:"Add your artist name", cover:"avatar.jpg", src:"" }
+  // e.g. { title:"Track name", artist:"Artist", cover:"cover1.jpg", src:"song1.mp3" },
 ];
 let trackIndex = 0;
 const playerAudio = $("playerAudio");
@@ -738,7 +758,7 @@ function fmtTime(sec){
 function loadTrack(i, autoplay){
   trackIndex = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
   const t = TRACKS[trackIndex];
-  playerCover.src = t.cover || "/avatar.jpg";
+  playerCover.src = t.cover || "avatar.jpg";
   playerCover.alt = t.title || "";
   playerTitle.textContent = t.title || "Untitled";
   playerArtist.textContent = t.artist || "";
