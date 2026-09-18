@@ -698,7 +698,12 @@ const ICONS = {
 const $ = id => document.getElementById(id);
 const wash = $("wash"), toast = $("toast");
 
-document.documentElement.style.setProperty("--accent", PROFILE.accent);
+function applySkinAccentOverride(){
+  const skin = document.documentElement.getAttribute("data-skin") || "default";
+  if (skin === "default") document.documentElement.style.setProperty("--accent", PROFILE.accent);
+  else document.documentElement.style.removeProperty("--accent");
+}
+applySkinAccentOverride();
 document.title = PROFILE.name;
 $("name").textContent = PROFILE.name;
 $("bio").textContent = PROFILE.bio;
@@ -728,13 +733,21 @@ LINKS.forEach((l, i) => {
   tiles.appendChild(el);
 });
 
-/* the glow follows whatever you're pointing at */
+/* the glow follows whatever you're pointing at.
+   Default skin keeps a resting glow that matches the avatar; HUD and Souls
+   stay dark at rest and only light up in a platform's color while hovering it. */
 const lit = c => { wash.style.backgroundColor = c; };
+function restingWashColor(){
+  const skin = document.documentElement.getAttribute("data-skin") || "default";
+  return skin === "default" ? PROFILE.accent : "transparent";
+}
+function applyRestingWash(){ lit(restingWashColor()); }
+applyRestingWash();
 const findTile = e => e.target.closest(".tile");
 tiles.addEventListener("pointerover", e => { const t = findTile(e); if (t) lit(t.style.getPropertyValue("--brand")); });
 tiles.addEventListener("focusin",     e => { const t = findTile(e); if (t) lit(t.style.getPropertyValue("--brand")); });
-tiles.addEventListener("pointerleave", () => lit(PROFILE.accent));
-tiles.addEventListener("focusout",     () => lit(PROFILE.accent));
+tiles.addEventListener("pointerleave", applyRestingWash);
+tiles.addEventListener("focusout",     applyRestingWash);
 
 /* copy-only accounts */
 let toastTimer;
@@ -1091,6 +1104,8 @@ function applySkin(skin, persist){
   if (!skinButtons[skin]) skin = "default";
   document.documentElement.setAttribute("data-skin", skin);
   Object.entries(skinButtons).forEach(([name, btn]) => btn.setAttribute("aria-pressed", name === skin ? "true" : "false"));
+  applySkinAccentOverride();
+  applyRestingWash();
   applySkinAvatar(skin);
   applySkinBackground(skin);
   if (persist) { try { localStorage.setItem(SKIN_KEY, skin); } catch {} }
