@@ -938,9 +938,11 @@ window.addEventListener("keydown", e => { if (e.key === "Escape") closeSens(); }
 
 /* music player — add your own track(s); one item plays, more become a playlist with Prev/Next */
 const TRACKS = [
-  { title:"Add your song title", artist:"Add your artist name", cover:"avatar.jpg", src:"" }
-  // e.g. { title:"Track name", artist:"Artist", cover:"cover1.jpg", src:"song1.mp3" },
+  { title:"Mad Sounds", artist:"Arctic Monkeys", cover:"cover-default.jpg", src:"track-default.mp3" },
+  { title:"The Ballad of Buck Ravers", artist:"SAMURAI", cover:"cover-hud.jpg", src:"track-hud.mp3" },
+  { title:"Covet", artist:"Basement", cover:"cover-souls.jpg", src:"track-souls.mp3" }
 ];
+const TRACK_INDEX_BY_SKIN = { default:0, hud:1, souls:2 };
 let trackIndex = 0;
 const playerAudio = $("playerAudio");
 const playerCover = $("playerCover"), playerTitle = $("playerTitle"), playerArtist = $("playerArtist");
@@ -1026,7 +1028,7 @@ let _musicStarted = false;
 new MutationObserver(() => {
   if (!_musicStarted && document.body.classList.contains("ready")) {
     _musicStarted = true;
-    if (TRACKS[0] && TRACKS[0].src) loadTrack(0, true);
+    if (TRACKS[trackIndex] && TRACKS[trackIndex].src) loadTrack(trackIndex, true);
   }
 }).observe(document.body, { attributes:true, attributeFilter:["class"] });
 
@@ -1102,6 +1104,8 @@ function applySkin(skin, persist){
   applyRestingWash();
   applySkinAvatar(skin);
   applySkinBackground(skin);
+  const idx = TRACK_INDEX_BY_SKIN[skin];
+  if (idx !== undefined && idx !== trackIndex) loadTrack(idx, true);
   if (persist) { try { localStorage.setItem(SKIN_KEY, skin); } catch {} }
 }
 
