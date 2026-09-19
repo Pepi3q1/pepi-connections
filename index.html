@@ -1105,7 +1105,7 @@ function applySkin(skin, persist){
   applySkinAvatar(skin);
   applySkinBackground(skin);
   const idx = TRACK_INDEX_BY_SKIN[skin];
-  if (idx !== undefined && idx !== trackIndex) loadTrack(idx, true);
+  if (idx !== undefined && idx !== trackIndex) loadTrack(idx, document.body.classList.contains("ready"));
   if (persist) { try { localStorage.setItem(SKIN_KEY, skin); } catch {} }
 }
 
