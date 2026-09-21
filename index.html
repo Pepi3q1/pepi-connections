@@ -395,7 +395,12 @@
   .setup-btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
   .setup-btn svg{width:16px; height:16px}
 
-  .setup-panel{width:min(420px, 92vw); padding:32px 30px; text-align:left; max-height:80vh; overflow-y:auto}
+  .setup-panel{width:min(420px, 92vw); padding:32px 30px; text-align:left; max-height:80vh; overflow-y:auto;
+    scrollbar-width:thin; scrollbar-color:var(--line) transparent;}
+  .setup-panel::-webkit-scrollbar{width:6px}
+  .setup-panel::-webkit-scrollbar-track{background:transparent}
+  .setup-panel::-webkit-scrollbar-thumb{background:color-mix(in srgb, var(--accent) 45%, transparent); border-radius:999px}
+  .setup-panel::-webkit-scrollbar-thumb:hover{background:color-mix(in srgb, var(--accent) 70%, transparent)}
   .setup-title{
     margin:0 0 18px; text-align:center;
     font-family:var(--heading-font);
@@ -917,8 +922,8 @@ window.addEventListener("keydown", e => { if (e.key === "Escape") closeSetup(); 
 const SENSITIVITY = [
   { label:"DPI",              value:"1600" },
   { label:"Polling Rate",     value:"1000" },
-  { label:"HipFire/360°",      value:"32cm" },
-  { label:"ADS/360°",          value:"42cm" }
+  { label:"HipFire/360°",      value:"cm" },
+  { label:"ADS/360°",          value:"cm" }
 ];
 const sensList = $("sensList");
 SENSITIVITY.forEach(s => {
@@ -1000,6 +1005,20 @@ playerPlayPause.addEventListener("click", () => {
 });
 $("playerPrev").addEventListener("click", () => loadTrack(trackIndex - 1, !playerAudio.paused));
 $("playerNext").addEventListener("click", () => loadTrack(trackIndex + 1, !playerAudio.paused));
+
+/* keyboard shortcuts: space = play/pause, left/right arrows = prev/next track */
+window.addEventListener("keydown", e => {
+  if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+  if (!document.body.classList.contains("ready")) return;
+  if (e.key === " " || e.code === "Space") {
+    e.preventDefault();
+    playerPlayPause.click();
+  } else if (e.key === "ArrowRight") {
+    $("playerNext").click();
+  } else if (e.key === "ArrowLeft") {
+    $("playerPrev").click();
+  }
+});
 
 playerAudio.addEventListener("loadedmetadata", () => {
   playerDuration.textContent = fmtTime(playerAudio.duration);
