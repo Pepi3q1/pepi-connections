@@ -179,9 +179,9 @@
 
   .card{
     position:relative; z-index:2;
-    width:min(540px, 100%);
-    padding:40px 28px 30px;
-    border-radius:30px;
+    width:min(560px, 100%);
+    padding:32px 24px 28px;
+    border-radius:28px;
     background:var(--glass);
     border:1px solid var(--line);
     box-shadow:var(--shadow);
@@ -194,7 +194,7 @@
   body.ready .card{opacity:1; transform:none}
 
   .avatar{
-    width:104px; height:104px; margin:0 auto 18px;
+    width:106px; height:106px; margin:0 auto 18px;
     border-radius:50%;
     display:grid; place-items:center;
     position:relative;
@@ -213,24 +213,26 @@
 
   h1{
     font-family:var(--heading-font);
-    font-weight:600; font-size:clamp(28px,7vw,38px);
-    letter-spacing:-.01em; margin:0 0 8px;
+    font-weight:600; font-size:clamp(30px,7vw,40px);
+    letter-spacing:-.02em; margin:0 0 8px;
   }
-  .bio{margin:0 auto 28px; max-width:34ch; color:var(--dim); font-size:15px; line-height:1.55}
+  .bio{margin:0 auto 26px; max-width:36ch; color:var(--dim); font-size:15px; line-height:1.6}
 
-  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-  @media (max-width:420px){ .tiles{grid-template-columns:repeat(2,1fr)} }
+  .tiles{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; margin-top:6px}
+  @media (max-width:520px){ .tiles{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px} }
+  @media (max-width:420px){ .tiles{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px} }
 
   .tile{
     all:unset;
     cursor:pointer;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;
-    padding:20px 8px;
-    border-radius:20px;
+    min-height:96px;
+    padding:18px 8px 16px;
+    border-radius:18px;
     border:1px solid var(--line);
     color:var(--ink);
-    background:transparent;
-    transition:transform .2s cubic-bezier(.2,.8,.25,1), color .5s ease, border-color .5s ease, background-color .5s ease, box-shadow .5s ease;
+    background:rgba(255,255,255,.01);
+    transition:transform .2s cubic-bezier(.2,.8,.25,1), color .35s ease, border-color .35s ease, background-color .35s ease, box-shadow .35s ease;
     opacity:0; transform:translateY(10px);
   }
   body.ready .tile{opacity:1; transform:none; transition-delay:var(--d)}
@@ -238,16 +240,17 @@
     color:color-mix(in srgb, var(--brand) 55%, var(--ink) 45%);
     border-color:color-mix(in srgb, var(--brand) 55%, transparent);
     background-color:color-mix(in srgb, var(--brand) 12%, transparent);
-    box-shadow:0 14px 34px -14px color-mix(in srgb, var(--brand) 70%, transparent);
-    transform:translateY(-4px); transition-delay:0s;
+    box-shadow:0 14px 30px -18px color-mix(in srgb, var(--brand) 70%, transparent);
+    transform:translateY(-3px); transition-delay:0s;
   }
   body.ready .tile:hover span, body.ready .tile:focus-visible span{
     color:var(--ink);
-    transition:color .5s ease;
+    transition:color .35s ease;
   }
-  .tile:focus-visible{outline:2px solid var(--brand); outline-offset:3px}
-  .tile:active{transform:translateY(-1px) scale(.98)}
+  .tile:focus-visible{outline:2px solid color-mix(in srgb, var(--brand) 70%, var(--ink)); outline-offset:3px}
+  .tile:active{transform:translateY(-1px) scale(.985)}
   .tile svg{width:30px; height:30px; fill:currentColor}
+
   .tile span{font-size:12.5px; font-weight:500; color:var(--dim); letter-spacing:.01em; transition:color .5s ease}
 
   .hint{margin:26px 0 0; font-size:12px; color:var(--dim); opacity:.75}
@@ -335,13 +338,14 @@
   .status-badge{
     display:inline-flex; align-items:center; gap:7px;
     margin:-6px auto 18px;
-    padding:6px 13px;
+    padding:7px 13px;
     border-radius:999px;
-    background:var(--glass); border:1px solid var(--line);
-    font-size:12.5px; color:var(--dim);
+    background:rgba(255,255,255,.02); border:1px solid var(--line);
+    font-size:12.5px; color:var(--fg);
+    box-shadow:0 10px 28px -18px rgba(0,0,0,.6);
   }
   .status-badge[hidden]{display:none}
-  .status-dot{width:8px; height:8px; border-radius:50%; flex:none}
+  .status-dot{width:8px; height:8px; border-radius:50%; flex:none; box-shadow:0 0 0 3px rgba(255,255,255,.06)}
 
   .qr-overlay{
     position:fixed; inset:0; z-index:40;
@@ -382,15 +386,17 @@
   .setup-btn{
     all:unset; cursor:pointer;
     display:inline-flex; align-items:center; gap:8px;
-    padding:10px 20px;
+    padding:10px 18px;
     border-radius:999px;
     border:1px solid var(--line);
     color:var(--ink); font-size:13px; font-weight:500;
-    transition:color .2s ease, border-color .2s ease, background-color .2s ease;
+    background:rgba(255,255,255,.02);
+    transition:color .2s ease, border-color .2s ease, background-color .2s ease, transform .2s ease;
   }
   .setup-btn:hover, .setup-btn:focus-visible{
     color:var(--accent); border-color:color-mix(in srgb, var(--accent) 50%, transparent);
     background-color:color-mix(in srgb, var(--accent) 12%, transparent);
+    transform:translateY(-1px);
   }
   .setup-btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
   .setup-btn svg{width:16px; height:16px}
@@ -604,7 +610,7 @@
       <span class="status-dot" id="statusDot"></span>
       <span id="statusText"></span>
     </div>
-    <p class="bio" id="bio">Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮</p>
+    <p class="bio" id="bio">FPS enjoyer • mostly online on weekends • friend requests welcome 🎮</p>
     <div class="tiles" id="tiles"></div>
     <div class="extra-btns">
       <button class="setup-btn" id="setupBtn" type="button">
@@ -616,7 +622,7 @@
         <span>My sensitivity</span>
       </button>
     </div>
-    <p class="hint" id="hint">Discord and Epic copy the username instead of opening.</p>
+    <p class="hint" id="hint">Discord and Epic copy my username instead of opening a profile.</p>
   </main>
 
   <button class="enter" id="enter" aria-label="Enter the page"><b>click to enter</b></button>
@@ -662,7 +668,7 @@
    ========================================================================== */
 const PROFILE = {
   name:      "Pepi",
-  bio:       "Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮",
+  bio:       "FPS enjoyer • mostly online on weekends • friend requests welcome 🎮",
   accent:    "#0080F0",                          // the page's resting glow (matches the avatar)
   discordId: "1038559491672789123"               // your numeric Discord user ID -> shows a live status badge.
                                                    // 1) Discord Settings -> Advanced -> turn on Developer Mode.
@@ -925,7 +931,8 @@ const SENSITIVITY = [
   { label:"HipFire/360°",      value:"32cm" },
   { label:"ADS/360°",          value:"42cm" },
   { label:"Counter-Strike 2",  value:"0.62" },
-  { label:"Fortnite",          value:"3.2" }
+  { label:"Fortnite",          value:"3.2" },
+  { label:"Roblox",            value:"0.2" }
 ];
 const sensList = $("sensList");
 SENSITIVITY.forEach(s => {
