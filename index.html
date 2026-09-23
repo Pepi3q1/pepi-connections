@@ -179,9 +179,9 @@
 
   .card{
     position:relative; z-index:2;
-    width:min(560px, 100%);
-    padding:32px 24px 28px;
-    border-radius:28px;
+    width:min(540px, 100%);
+    padding:40px 28px 30px;
+    border-radius:30px;
     background:var(--glass);
     border:1px solid var(--line);
     box-shadow:var(--shadow);
@@ -194,7 +194,7 @@
   body.ready .card{opacity:1; transform:none}
 
   .avatar{
-    width:106px; height:106px; margin:0 auto 18px;
+    width:104px; height:104px; margin:0 auto 18px;
     border-radius:50%;
     display:grid; place-items:center;
     position:relative;
@@ -213,26 +213,24 @@
 
   h1{
     font-family:var(--heading-font);
-    font-weight:600; font-size:clamp(30px,7vw,40px);
-    letter-spacing:-.02em; margin:0 0 8px;
+    font-weight:600; font-size:clamp(28px,7vw,38px);
+    letter-spacing:-.01em; margin:0 0 8px;
   }
-  .bio{margin:0 auto 26px; max-width:36ch; color:var(--dim); font-size:15px; line-height:1.6}
+  .bio{margin:0 auto 28px; max-width:34ch; color:var(--dim); font-size:15px; line-height:1.55}
 
-  .tiles{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; margin-top:6px}
-  @media (max-width:520px){ .tiles{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px} }
-  @media (max-width:420px){ .tiles{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px} }
+  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  @media (max-width:420px){ .tiles{grid-template-columns:repeat(2,1fr)} }
 
   .tile{
     all:unset;
     cursor:pointer;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;
-    min-height:96px;
-    padding:18px 8px 16px;
-    border-radius:18px;
+    padding:20px 8px;
+    border-radius:20px;
     border:1px solid var(--line);
     color:var(--ink);
-    background:rgba(255,255,255,.01);
-    transition:transform .2s cubic-bezier(.2,.8,.25,1), color .35s ease, border-color .35s ease, background-color .35s ease, box-shadow .35s ease;
+    background:transparent;
+    transition:transform .2s cubic-bezier(.2,.8,.25,1), color .5s ease, border-color .5s ease, background-color .5s ease, box-shadow .5s ease;
     opacity:0; transform:translateY(10px);
   }
   body.ready .tile{opacity:1; transform:none; transition-delay:var(--d)}
@@ -777,8 +775,17 @@ tiles.addEventListener("click", async e => {
 
 /* enter screen */
 const enter = $("enter");
-const open = () => { document.body.classList.add("ready"); setTimeout(() => enter.remove(), 700); };
+const open = () => {
+  if (document.body.classList.contains("ready")) return;
+  document.body.classList.add("ready");
+  setTimeout(() => enter.remove(), 700);
+};
 enter.addEventListener("click", open);
+document.addEventListener("pointerdown", (event) => {
+  if (document.body.classList.contains("ready")) return;
+  if (event.target && event.target.closest(".enter")) return;
+  open();
+}, { passive: true });
 window.addEventListener("keydown", function onKey(e){
   if (document.body.classList.contains("ready")) return;
   if (e.key === "Tab") return;
