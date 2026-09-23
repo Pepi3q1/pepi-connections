@@ -50,12 +50,12 @@
     /* dark is the baseline default now, scoped per visual skin below */
     --bg:#06060A; --bg2:#0D0D17;
     --fg:#F2F2F8; --dim:#8C8CA1;
-    --glass:rgba(15,18,26,.72);
-    --line:rgba(255,255,255,.10);
+    --glass:rgba(255,255,255,.045);
+    --line:rgba(255,255,255,.09);
     --ink:#EDEDF5;
-    --wash-o:.52;
+    --wash-o:.55;
     --dust:rgba(255,255,255,.6);
-    --shadow:0 40px 120px -40px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.10);
+    --shadow:0 40px 120px -40px rgba(0,0,0,.9);
     --accent:#0080F0;
     --accent2:#0080F0;
     --heading-font:"Unbounded","Trebuchet MS",system-ui,sans-serif;
@@ -144,9 +144,8 @@
   html,body{margin:0;padding:0}
   body{
     min-height:100dvh;
-    background:
-      radial-gradient(circle at top, color-mix(in srgb, var(--bg2) 92%, transparent), transparent 35%),
-      linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 84%, var(--bg2)) 100%);
+    background:var(--bg);
+    background-image:radial-gradient(130% 95% at 50% -10%, var(--bg2), var(--bg) 62%);
     background-attachment:fixed;
     color:var(--fg);
     font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -181,13 +180,13 @@
   .card{
     position:relative; z-index:2;
     width:min(540px, 100%);
-    padding:38px 26px 28px;
-    border-radius:28px;
-    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)), var(--glass);
+    padding:40px 28px 30px;
+    border-radius:30px;
+    background:var(--glass);
     border:1px solid var(--line);
     box-shadow:var(--shadow);
-    backdrop-filter:blur(26px) saturate(1.4);
-    -webkit-backdrop-filter:blur(26px) saturate(1.4);
+    backdrop-filter:blur(26px) saturate(1.3);
+    -webkit-backdrop-filter:blur(26px) saturate(1.3);
     text-align:center;
     opacity:0; transform:translateY(14px) scale(.985);
     transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.25,1);
@@ -217,31 +216,20 @@
     font-weight:600; font-size:clamp(28px,7vw,38px);
     letter-spacing:-.01em; margin:0 0 8px;
   }
-  .bio{
-    margin:0 auto 22px;
-    max-width:32ch;
-    color:var(--dim);
-    font-size:15px;
-    line-height:1.55;
-    letter-spacing:.01em;
-  }
+  .bio{margin:0 auto 28px; max-width:34ch; color:var(--dim); font-size:15px; line-height:1.55}
 
-  .tiles{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px}
-  @media (max-width:420px){
-    .card{padding:30px 18px 22px}
-    .tiles{grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px}
-    .tile{padding:16px 8px}
-  }
+  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  @media (max-width:420px){ .tiles{grid-template-columns:repeat(2,1fr)} }
 
   .tile{
     all:unset;
     cursor:pointer;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;
-    padding:18px 8px;
-    border-radius:18px;
+    padding:20px 8px;
+    border-radius:20px;
     border:1px solid var(--line);
     color:var(--ink);
-    background:rgba(255,255,255,.015);
+    background:transparent;
     transition:transform .2s cubic-bezier(.2,.8,.25,1), color .5s ease, border-color .5s ease, background-color .5s ease, box-shadow .5s ease;
     opacity:0; transform:translateY(10px);
   }
@@ -260,9 +248,9 @@
   .tile:focus-visible{outline:2px solid var(--brand); outline-offset:3px}
   .tile:active{transform:translateY(-1px) scale(.98)}
   .tile svg{width:30px; height:30px; fill:currentColor}
-  .tile span{font-size:12.5px; font-weight:600; color:var(--dim); letter-spacing:.02em; transition:color .5s ease}
+  .tile span{font-size:12.5px; font-weight:500; color:var(--dim); letter-spacing:.01em; transition:color .5s ease}
 
-  .hint{margin:22px 0 0; font-size:12px; color:var(--dim); opacity:.8; letter-spacing:.02em}
+  .hint{margin:26px 0 0; font-size:12px; color:var(--dim); opacity:.75}
 
   .enter{
     all:unset;
@@ -349,9 +337,8 @@
     margin:-6px auto 18px;
     padding:6px 13px;
     border-radius:999px;
-    background:rgba(255,255,255,.02); border:1px solid var(--line);
+    background:var(--glass); border:1px solid var(--line);
     font-size:12.5px; color:var(--dim);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
   }
   .status-badge[hidden]{display:none}
   .status-dot{width:8px; height:8px; border-radius:50%; flex:none}
@@ -398,7 +385,6 @@
     padding:10px 20px;
     border-radius:999px;
     border:1px solid var(--line);
-    background:rgba(255,255,255,.02);
     color:var(--ink); font-size:13px; font-weight:500;
     transition:color .2s ease, border-color .2s ease, background-color .2s ease;
   }
@@ -618,7 +604,7 @@
       <span class="status-dot" id="statusDot"></span>
       <span id="statusText"></span>
     </div>
-    <p class="bio" id="bio">Mostly online on weekends. FPS enjoyer. Add me on Discord or Steam 🎮</p>
+    <p class="bio" id="bio">Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮</p>
     <div class="tiles" id="tiles"></div>
     <div class="extra-btns">
       <button class="setup-btn" id="setupBtn" type="button">
@@ -630,7 +616,7 @@
         <span>My sensitivity</span>
       </button>
     </div>
-    <p class="hint" id="hint">Tap a tile to open it, or copy a username from Discord and Epic.</p>
+    <p class="hint" id="hint">Discord and Epic copy the username instead of opening.</p>
   </main>
 
   <button class="enter" id="enter" aria-label="Enter the page"><b>click to enter</b></button>
@@ -676,7 +662,7 @@
    ========================================================================== */
 const PROFILE = {
   name:      "Pepi",
-  bio:       "Mostly online on weekends. FPS enjoyer. Add me on Discord or Steam 🎮",
+  bio:       "Online mostly on weekends. FPS enjoyer. Friend requests welcome 🎮",
   accent:    "#0080F0",                          // the page's resting glow (matches the avatar)
   discordId: "1038559491672789123"               // your numeric Discord user ID -> shows a live status badge.
                                                    // 1) Discord Settings -> Advanced -> turn on Developer Mode.
@@ -939,8 +925,7 @@ const SENSITIVITY = [
   { label:"HipFire/360°",      value:"32cm" },
   { label:"ADS/360°",          value:"42cm" },
   { label:"Counter-Strike 2",  value:"0.62" },
-  { label:"Fortnite",          value:"3.2" },
-  { label:"Roblox",            value:"0.2" }
+  { label:"Fortnite",          value:"3.2" }
 ];
 const sensList = $("sensList");
 SENSITIVITY.forEach(s => {
